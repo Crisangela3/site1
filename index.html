@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A&C Studio Designer de Sobrancelhas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <head>
+        
+
+    </head>
+    
+    <style>
+
+
+        
+        :root {
+            --primary-color: #c425d3;  /* Deep Pink */
+            --secondary-color: hwb(295 3% 60%);  /* Light Pink */
+            --accent-color: #a14783;  /* Dark Magenta */
+            --background-color: #dcf8f8;  /* Lavender Blush */
+            --text-color: #af2786;
+        }
+
+        * {
+            margin: 10;
+            padding: 10;
+            box-sizing: content-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* Elegant Header */
+        header {
+            position: fixed;
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 10px 10px;
+            box-shadow: 0 20px 10px rgba(0,0,0,0.1);
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 2000px;
+            margin: auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 100px;
+            border-radius: 8%;
+            margin-right: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .logo h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 35px;
+            font-weight: 100;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 100px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 100%;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 10;
+            height: 100px;
+            bottom: 10px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--secondary-color);
+        }
+
+        nav ul li a:hover::after {
+            width: 40%;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+        }
+
+        .menu-toggle div {
+            width: 100px;
+            height: 30px;
+            background-color: white;
+            margin: 400px 0;
+            transition: 0.4s;
+        }
+
+        /* Sections */
+        .section {
+            padding: 20px 1px;
+            text-align: center;
+            max-width: 2000px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(228, 10, 155, 0.5), rgba(0,0,0,0.5)), 
+                        url('beauty-background.jpg') no-repeat center center;
+            background-size: cover;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            margin-bottom: 100px;
+            color: var(--secondary-color);
+        }
+
+        .hero p {
+            font-size: 30px;
+            max-width: 0,1px;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 50px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 80;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 12px rgba(77, 8, 187, 0.2);
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .services {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 0px;
+            padding: 20px;
+            margin: 100px;
+            width: 250px;
+            box-shadow: 0 60px 10px rgba(223, 12, 142, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+        }
+
+        .service-card i {
+            font-size: 30px;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 300fr));
+            gap: 10px;
+        }
+
+        .gallery img {
+            width: 95%;
+            border-radius: 30px;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.5);
+        }
+
+        footer {
+    position: fixed; /* Fixa o footer na parte inferior da tela */
+    bottom: 0; /* Fixa o footer no fundo */
+    left: 0; /* Alinha o footer à esquerda */
+    width: 100vw; /* Garante que o footer ocupe 100% da largura da tela */
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color)); /* Gradiente de fundo */
+    color: white; /* Cor do texto */
+    padding: 5px 0; /* Reduz o padding para deixar o footer mais fino (5px de padding vertical) */
+    box-shadow: 0 -20px 10px rgba(0, 0, 0, 0.1); /* Sombra na parte superior */
+    z-index: 10; /* Garante que o footer fique acima de outros elementos */
+    transition: all 0.3s ease; /* Suaviza transições */
+}
+
+
+        @media (max-width: 10px) {
+            header {
+                padding: 1.5px;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 10%;
+                background: linear-gradient(200deg, var(--primary-color), var(--accent-color));
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h2 {
+                font-size: 100px;
+            }
+        }
+        /* Contact Section Styles */
+        .contact {
+    background-color: rgb(250, 219, 237); /* Cor de fundo suave */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 15px 20px rgba(170, 6, 102, 0.15); /* Sombra mais pronunciada */
+    max-width: 600px; /* Limita a largura a 600px */
+    margin: 30px auto; /* Espaçamento de 30px em cima e embaixo, centralizado */
+    padding: 40px; /* Padding mais suave para não afastar tanto o conteúdo */
+    text-align: center; /* Centraliza o texto dentro da caixa */
+}   
+ 
+.contact button {
+    background-color: var(--primary-color); /* Cor de fundo, pode usar uma cor fixa */
+    color: white; /* Cor do texto */
+    border: none; /* Remove a borda padrão */
+    padding: 15px 30px; /* Aumenta o tamanho do botão (ajuste conforme necessário) */
+    font-size: 18px; /* Aumenta o tamanho da fonte do botão */
+    border-radius: 5px; /* Bordas arredondadas */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+    width: auto; /* Pode ajustar a largura para 'auto' ou um valor fixo, como 200px */
+}
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-form .form-group {
+        margin-bottom: 100px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        padding: 20px 8px;
+        border: 5px solid var(--secondary-color);
+        border-radius: 10px;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 20px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 500px rgba(182, 4, 123, 0.2);
+    }
+
+    .contact-form textarea {
+        resize: vertical;
+        min-height: 20px;
+    }
+
+    .contact-form .btn {
+        align-self: center;
+        margin-top: 10px;
+        padding: 15,px 10px;
+    }
+
+    @media (max-width: 100px) {
+        .contact {
+            padding: 10px 10px;
+            margin: 20px 10px;
+        }
+    }
+
+    /* Carousel Styles */
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto 100px;
+        overflow: hidden;
+    }
+
+    .carousel {
+        display: flex;
+        transition: transform 0.2s ease;
+        width: 100%;
+    }
+
+    .carousel-item {
+        flex: 0 0 10%;
+        position: relative;
+        width: 100%;
+        height: 100px;
+        overflow: hidden;
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .carousel-item img:hover {
+        transform: scale(1.05);
+    }
+
+    .carousel-controls {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        top: 150%;
+        width: 100%;
+        transform: translateY(-50%);
+    }
+
+    .carousel-control {
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 100px 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        z-index: 10;
+    }
+
+    .carousel-control:hover {
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .carousel-indicators {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .indicator {
+        width: 15px;
+        height: 15px;
+        background-color: #380334e8;
+        border-radius: 100%;
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .indicator.active {
+        background-color: var(--primary-color);
+    }
+
+    @media (max-width: 768px) {
+        .carousel-item {
+            height: 100px;
+        }
+    }
+    .carousel-item {
+    flex: 0 0 10%;
+    position: relative;
+    width: 20%;
+    height: 20px; /* Fixed height */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-item img {
+    width: 20%; /* Ensure image fills the width */
+    height: 20%; /* Ensure image fills the height */
+    object-fit: cover; /* Maintain aspect ratio while covering entire area */
+    object-position: center; /* Center the image */
+}
+    /* Testimonials Section Styles */
+    .testimonials {
+        background-color: #c6c2c7;
+        padding: 20px 20px;
+        text-align: center;
+    }
+
+    .testimonials h2 {
+        margin-bottom: 50px;
+        color: var(--primary-color);
+        font-family: 'Playfair Display', serif;
+    }
+
+    .testimonial-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .testimonial-card {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 10 10px 20px rgba(0,0,0,0.1);
+        padding: 5px;
+        max-width: 500px;
+        transition: transform 0.3s ease;
+        position: relative;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .testimonial-card blockquote {
+        font-style: italic;
+        color: var(--secondary-color);
+        margin-bottom: 50px;
+        position: relative;
+        padding: 0 5px;
+    }
+
+    .testimonial-card blockquote::before,
+    .testimonial-card blockquote::after {
+        content: '"';
+        font-size: 5px;
+        color: var(--primary-color);
+        position: absolute;
+        opacity: 0.3;
+    }
+
+    .testimonial-card blockquote::before {
+        left: -10px;
+        top: -10px;
+    }
+
+    .testimonial-card blockquote::after {
+        right: -30px;
+        bottom: -30px;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1px;
+    }
+
+    .author-image {
+        width: 50px;
+        height: 0,1px;
+        border-radius: 500%;
+        margin-right: 10px;
+        object-fit: cover;
+        border: 3px solid var(--primary-color);
+    }
+
+    .author-info {
+        text-align: left;
+    }
+
+    .author-name {
+        font-weight: bold;
+        color: var(--secondary-color);
+    }
+
+    .author-role {
+        font-size: 0.8em;
+        color: #99ddf1;
+    }
+
+    @media (max-width: 768px) {
+        .testimonial-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .testimonial-card {
+            width: 100%;
+            max-width: 500px;
+        }
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="images/logo.png" alt="AC Studio Logo">
+                <h1>A&C Studio</h1>
+            </div>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Serviços</a></li>
+                    <li><a href="#about">Sobre</a></li>
+                    <li><a href="#gallery">Galeria</a></li>
+                    <li><a href="#contact">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero section">
+        <h2>Transforme seu Olhar</h2>
+        <p>"Cada traço, cada sombra, cada detalhe conta. Sua beleza, nossa arte."</p>
+        <a href="#contact" class="btn">Agende Seu Horário</a>
+    </section>
+
+    <section id="services" class="section">
+        <h2>Nossos Serviços</h2>
+        <div class="services">
+            <div class="service-card">
+                <i class="fas fa-cut"></i>
+                <h3>Design de Sobrancelhas</h3>
+                <p>Realçamos o formato natural de suas sobrancelhas para um olhar perfeito.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-palette"></i>
+                <h3>Maquiagem Profissional</h3>
+                <p>Maquiagem personalizada para qualquer ocasião, destacando sua beleza única.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-spa"></i>
+                <h3>Microblanding</h3>
+                <p>Cuidados especializados para uma pele radiante e renovada.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2>Sobre o Estúdio</h2>
+        <p>No AC Studio, transformamos mais do que aparência. Criamos experiências únicas que elevam sua 
+        autoestima e revelam sua beleza interior. Com técnicas precisas e um olhar artístico, cada serviço
+        é uma obra de arte personalizada.</p>
+    </section>
+
+    <section id="images gallery" class="section">
+        <h2>Nossa Galeria</h2>
+        <div class="gallery">
+            <img src="images/gallery1.jpg" alt=" Maquiagem Profissional"><p>Maquiagem Profissional</p>
+            <img src="images/gallery2.jpg" alt="Design de Sobrancelhas"><p>Design de Sobrancelhas</p>
+            <img src="images/gallery3.png" alt="Microblanding"><p>Microblanding</p>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact">
+        <h2>Contato</h2>
+        <div class="contact-container">
+            <form class="contact-form">
+                <div class="form-group">
+                    <inputDesign de Sobrancel type="text" placeholder="Nome" required>
+                </div>
+                
+                <!-- modify this form HTML and place wherever you want your form -->
+<form
+action="https://formspree.io/f/xgvejzjy"
+method="POST"
+>
+<label>
+  Digite Seu E-mail:
+  <input type="email" name="email">
+</label>
+<label>
+  Escreva a sua mensagem:
+  <textarea name="message"></textarea>
+</label>
+<!-- your other form fields go here -->
+<button type="submit">Enviar</button> <br>
+
+</form>
+        </div>
+    </section>
+    <section id="carousel-gallery" class="section">
+        <h2>Nossos Trabalhos em Destaque</h2>
+        
+        <div class="carousel-container">
+            <div class="carousel" id="imageCarousel">
+                <!-- Carousel items will be dynamically added here -->
+        <div class="slides">
+            <img src="images/gallery4.png" alt="Imagem 1">  
+            <img src="images/png5.png" alt="Imagem 2">
+            <img src="images/png25.png" alt="Maquiagem noiva antes/depois">
+            <img src="images/png30.png" alt="Henna">
+            <img src="images/png26.png" alt="Microblanding">
+            <img src="images/png29.png" alt="Sala atendimento">
+            <img src="images/png20.png" alt="Designer Linha">          
+        </div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-control prev" onclick="changeSlide(-1)">&#10094;</button>
+                <button class="carousel-control next" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+        <div class="carousel-indicators" id="carouselIndicators">
+            <!-- Indicators will be dynamically added here -->
+        </div>
+        <!-- Add this section where you want the testimonials to appear -->
+<section id="testimonials" class="section testimonials">
+    <h2>O Que Nossos Clientes Dizem</h2>
+    <div class="testimonial-container">
+        <div class="testimonial-card">
+            <blockquote>
+                Nunca imaginei que minhas sobrancelhas pudessem ficar tão perfeitas! A profissional da 
+                A&C Studio tem um talento incrível para realçar minha beleza natural.
+            </blockquote>
+            <div class="testimonial-author">
+                <img src="client1.jpg" alt="Maria Silva" class="author-image">
+                <div class="author-info">
+                    <div class="author-name">Maria Silva</div>
+                    <div class="author-role">Advogada</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <blockquote>
+                A maquiagem que fizeram para meu casamento foi simplesmente perfeita. Me senti linda e confiante o 
+                dia todo. Recomendo demais o A&C Studio!
+            </blockquote>
+            <div class="testimonial-author">
+                <img src="client2.jpg" alt="Ana Beatriz" class="author-image">
+                <div class="author-info">
+                    <div class="author-name">Ana Beatriz</div>
+                    <div class="author-role">Noiva</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <blockquote>
+                Depois do tratamento facial no AC Studio, minha pele nunca esteve tão bonita e saudável. Profissionais incríveis 
+                e ambiente acolhedor!
+            </blockquote>
+            <div class="testimonial-author">
+                <img src="client3.jpg" alt="Laura Costa" class="author-image">
+                <div class="author-info">
+                    <div class="author-name">Laura Costa</div>
+                    <div class="author-role">Empresária</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<title>Mapa com Localização</title>
+<style>
+    /* Estilo para o contêiner do mapa */
+    .map-container {
+        width: 100%; /* O mapa vai ocupar a largura total da tela */
+        max-width: 80px; /* Limita a largura máxima */
+        margin: 0 auto; /* Centraliza o contêiner */
+        border-radius: 10px; /* Bordas arredondadas */
+        overflow: hidden; /* Garante que o mapa não saia das bordas arredondadas */
+    }
+
+    /* Estilo adicional (opcional) para o iframe, caso queira um contorno mais estilizado */
+    .map-container iframe {
+        border-radius: 10px; /* Bordas arredondadas no próprio iframe */
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra suave ao redor do mapa */
+    }
+</style>
+</head>
+<body>
+
+</div>
+
+        <script>
+            // Array of 31 image paths (replace with your actual image paths)
+            const carouselImages = [
+                'gallery1.jpg', 
+                'gallery2.jpg', 
+                'gallery3.jpg', 
+                'gallery4.jpg',
+                // Add all 31 image paths here
+                // Example: 
+                // 'gallery5.jpg', 
+                // 'gallery6.jpg', 
+                // ... up to 'gallery31.jpg'
+            ];
+        
+            const carousel = document.getElementById('imageCarousel');
+            const indicators = document.getElementById('carouselIndicators');
+            let currentSlide = 0;
+        
+            // Populate carousel with images
+            function populateCarousel() {
+                carouselImages.forEach((imagePath, index) => {
+                    // Create carousel item
+                    const carouselItem = document.createElement('div');
+                    carouselItem.classList.add('carousel-item');
+                    
+                    const img = document.createElement('img');
+                    img.src = imagePath;
+                    img.alt = `Trabalho ${index + 1}`;
+                    
+                    carouselItem.appendChild(img);
+                    carousel.appendChild(carouselItem);
+        
+                    // Create indicator
+                    const indicator = document.createElement('div');
+                    indicator.classList.add('indicator');
+                    indicator.onclick = () => goToSlide(index);
+                    indicators.appendChild(indicator);
+                });
+        
+                // Set first slide as active
+                updateCarousel();
+            }
+        
+            // Change slide
+            function changeSlide(direction) {
+                currentSlide += direction;
+                
+                // Handle wrapping
+                if (currentSlide >= carouselImages.length) {
+                    currentSlide = 0;
+                }
+                if (currentSlide < 0) {
+                    currentSlide = carouselImages.length - 1;
+                }
+        
+                updateCarousel();
+            }
+        
+            // Go to specific slide
+            function goToSlide(index) {
+                currentSlide = index;
+                updateCarousel();
+            }
+        
+            // Update carousel display
+            function updateCarousel() {
+                const offset = -currentSlide * 100;
+                carousel.style.transform = `translateX(${offset}%)`;
+        
+                // Update active indicator
+                const indicatorElements = document.querySelectorAll('.indicator');
+                indicatorElements.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentSlide);
+                });
+            }
+        
+            // Auto-advance slides
+            function autoAdvance() {
+                changeSlide(1);
+            }
+        
+            // Initialize carousel
+            populateCarousel();
+        
+            // Auto-advance every 5 seconds
+            setInterval(autoAdvance, 5000);
+        </script>
+        Última edição agora mesmo
+    <footer>
+        
+        <p>&copy; 2024 A&C Studio. Todos os direitos reservados.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.querySelector('nav ul');
+            nav.classList.toggle('active');
+        }
+    </script>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Site com Google Maps</title>
+</head>
+<body>
+    <div class="mapBox">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d4379.951303311593!2d-46.60966928112354!3d-23.58322793679167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1651105282919!5m2!1spt-BR!2sbr"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    </div>
+</body>
+</html>
+
+
+</body>
+</html>
+
